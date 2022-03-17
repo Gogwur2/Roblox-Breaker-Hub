@@ -1,3 +1,4 @@
+--loadstring(game:HttpGet("https://pastebin.com/raw/j4qyW7Ku"))()
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 local colors = {
     SchemeColor = Color3.fromRGB(0,255,255),
@@ -6,8 +7,7 @@ local colors = {
     TextColor = Color3.fromRGB(255,255,255),
     ElementColor = Color3.fromRGB(20, 20, 20)
 }
-
-if game.PlaceId== 155615604 then
+if game.PlaceId == 155615604 then
 	
 	local Window = Library.CreateLib("RBLX Breaker Hub - Prison Life", "Sentinel")
 	local LocalPlayer = game.Players.LocalPlayer
@@ -46,8 +46,16 @@ if game.PlaceId== 155615604 then
         		GunModule.FireRate = 0.00001
         		GunModule.AutoFire = true
         		GunModule.ReloadTime = 0.00001
+        		GunModule.Bullets = 30
         	end
         end
+	end)
+	
+	Misc:NewButton("Force Crash","Chrashes your studio.",function()
+		for i = 1,90000 do
+			local part =Instance.new('Part',game.Workspace)
+			part.Size = Vector3.new(100,100,100)
+		end
 	end)
 	
 	Sliders:NewSlider("Walk Speed", "Changes Player walkspeed.", 200, 16, function(Value) -- 500 (MaxValue) | 0 (MinValue)
@@ -82,4 +90,107 @@ if game.PlaceId== 155615604 then
 	    end)
 	end
 
+elseif game.PlaceId == 662417684 then
+
+	local Window = Library.CreateLib("RBLX Breaker Hub - Lucky Block Battlegrounds", "Sentinel")
+	local LocalPlayer = game.Players.LocalPlayer
+	
+	--: Tabs
+	local Main = Window:NewTab("Home")
+	local PlayerTab = Window:NewTab("Player")
+	local SettingsTab = Window:NewTab("Settings")
+	
+	--: Sections
+	local BlockPicker = Main:NewSection("Blocks")
+	local Sliders = PlayerTab:NewSection("Player Info")
+	local ColorSettings = SettingsTab:NewSection("Colors")
+	
+	BlockPicker:NewDropdown("Block Picker", "Opens a block of your choice.", {"Lucky Block", "Super Block", "Diamond Block", "Rainbow Block", "Galaxy Block"}, function(v)
+   		if v == 'Lucky Block' then
+			for i = 1,5 do
+				local Event = game:GetService("ReplicatedStorage").SpawnLuckyBlock
+				Event:FireServer()
+			end
+		elseif v == 'Super Block' then
+			for i = 1,5 do
+				local Event = game:GetService("ReplicatedStorage").SpawnSuperBlock
+				Event:FireServer()
+			end
+		elseif v == 'Diamond Block' then
+			for i = 1,5 do
+				local Event = game:GetService("ReplicatedStorage").SpawnDiamondBlock
+				Event:FireServer()
+			end
+		elseif v == 'Galaxy Block' then
+			for i = 1,5 do
+				local Event = game:GetService("ReplicatedStorage").SpawnGalaxyBlock
+				Event:FireServer()
+			end
+   		end
+	end)
+	
+	Sliders:NewSlider("Walk Speed", "Changes Player walkspeed.", 200, 16, function(Value) -- 500 (MaxValue) | 0 (MinValue)
+	    LocalPlayer.Character.Humanoid.WalkSpeed = Value
+	end)
+	
+	Sliders:NewSlider("Jump Power", "Changes Player JumpPower.", 200, 50, function(Value) -- 500 (MaxValue) | 0 (MinValue)
+	    LocalPlayer.Character.Humanoid.JumpPower = Value
+	end)
+	
+	for theme, color in pairs(colors) do
+	    ColorSettings:NewColorPicker(theme, "Change your "..theme, color, function(color3)
+	        Library:ChangeColor(theme, color3)
+	    end)
+	end
+	
+elseif game.PlaceId == 286090429 then
+
+	local Window = Library.CreateLib("RBLX Breaker Hub - Arsenal", "Sentinel")
+	local LocalPlayer = game.Players.LocalPlayer
+	
+	--: Tabs
+	local Main = Window:NewTab("Home")
+	local SettingsTab = Window:NewTab("Settings")
+	
+	--: Sections
+	local Misc = Main:NewSection("Misc")
+	local ColorSettings = SettingsTab:NewSection("Colors")
+	
+	Misc:NewButton("Vanity Aimbot.","Enables Vanity aimbot",function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Gogwur2/Roblox-Breaker-Hub/main/vanity.lua"))()
+	end)
+	
+	for theme, color in pairs(colors) do
+	    ColorSettings:NewColorPicker(theme, "Change your "..theme, color, function(color3)
+	        Library:ChangeColor(theme, color3)
+	    end)
+	end
+
+else
+	local Window = Library.CreateLib("RBLX Breaker Hub - Universal", "Sentinel")
+	local LocalPlayer = game.Players.LocalPlayer
+	
+	--: Tabs
+	local Main = Window:NewTab("Home")
+	local PlayerTab = Window:NewTab("Player")
+	local SettingsTab = Window:NewTab("Settings")
+	
+	--: Sections
+	local Sliders = PlayerTab:NewSection("Player Info")
+	local Misc = Main:NewSection("Misc")
+	local ColorSettings = SettingsTab:NewSection("Colors")
+	
+	Sliders:NewSlider("Walk Speed", "Changes Player walkspeed.", 200, 16, function(Value) -- 500 (MaxValue) | 0 (MinValue)
+	    LocalPlayer.Character.Humanoid.WalkSpeed = Value
+	end)
+	
+	Sliders:NewSlider("Jump Power", "Changes Player JumpPower.", 200, 50, function(Value) -- 500 (MaxValue) | 0 (MinValue)
+	    LocalPlayer.Character.Humanoid.JumpPower = Value
+	end)
+	
+	for theme, color in pairs(colors) do
+	    ColorSettings:NewColorPicker(theme, "Change your "..theme, color, function(color3)
+	        Library:ChangeColor(theme, color3)
+	    end)
+	end
 end
